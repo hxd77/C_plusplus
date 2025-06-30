@@ -1,8 +1,6 @@
-//exp6_3:对象数组应用举例
+#include"Point.h"
 #include<iostream>
-#include "Point.h"
 using namespace std;
-
 int main()
 {
     cout<<"Entering main..."<<endl;

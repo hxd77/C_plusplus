@@ -26,4 +26,8 @@ int main()
     const R b(20,52);
     b.print();      //调用void print() const
     return 0;
+
+
+
+    
 }

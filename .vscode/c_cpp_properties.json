@@ -10,25 +10,11 @@
                 "UNICODE",
                 "_UNICODE"
             ],
-            "compilerPath": "D:\\MingGw64\\mingw64\\bin\\gcc.exe",
+            "windowsSdkVersion": "10.0.22621.0",
+            "compilerPath": "D:/MingGw64/mingw64/bin/g++.exe",
             "cStandard": "c17",
-            "cppStandard": "gnu++14",
+            "cppStandard": "c++17",
             "intelliSenseMode": "windows-gcc-x64"
-        },
-        {
-            "name": "C++",
-            "includePath": [
-                "${workspaceFolder}/**"
-            ],
-            "defines": [
-                "_DEBUG",
-                "UNICODE",
-                "_UNICODE"
-            ],
-            "compilerPath": "D:\\MingGw64\\mingw64\\bin\\g++.exe",
-            "cStandard": "c17",
-            "cppStandard": "gnu++14",
-            "intelliSenseMode": "gcc-x64"
         }
     ],
     "version": 4
