@@ -11,7 +11,7 @@
 
 解：可见性是标识符是否可以引用的问题。
 
-可见性的一般规则是：标识符要声明在前，引用在后；在同一作用域中，不能声明**同名的标识的标识符**。对于在不同的作用域声明的标识符，遵循的规则是：若有两个或多个具有包含关系的作用域，外层声明的标识符如果在内层没有声明同名标识符时仍可见，如果内层声明了同名标识符则外层标识符不可见。
+可见性的一般规则是：标识符要声明在前，引用在后；在同一作用域中，不能声明**同名的标识的标识符**。对于在不同的作用域声明的标识符，遵循的规则是：**若有两个或多个具有包含关系的作用域，外层声明的标识符如果在内层没有声明同名标识符时仍可见，如果内层声明了同名标识符则外层标识符不可见。**
 
 
 
@@ -54,6 +54,8 @@ x from main: 5
 y from main: 7
 ```
 
+>在myFuncton函数之外，可以引用具有文件作用域的变量，可就是可见的。但当程序进入myFunction之后，就只能引用具有局部作用域的同名变量，具有文件作用域的同名变量被隐藏的。
+
 
 
 ### 5-4 假设有两个无关系的类Engine和Fuel，使用时，怎样允许Fuel成员访问Engine中的私有和保护的成员?
@@ -82,6 +84,8 @@ class fuel
 };
 ```
 
+>根据友元函数的特性，友元函数是一个普通的函数，也可以是其他类的成员函数。虽然它不是本类的成员函数，但是在它的函数体中可以通过对象名访问类的私有和保护成员，
+
 
 
 ### 5-5 什么叫做静态数据成员？它有何特点？
@@ -99,6 +103,77 @@ class fuel
 ### 5-7 定义一个Cat类，拥有静态数据成员numOfCats，记录Cat的个体数目；静态成员函数getNumOfCats()，存取numOfCats。设计程序测试这个类，体会静态数据成员和静态成员函数的用法。
 
 解：源程序：
+
+```c++
+#include<iostream>
+using namespace std;
+
+class Cat
+{
+public:
+    Cat(int age):itsAge(age){       //构造函数
+        numOfCats++;
+    }
+    virtual ~Cat(){                 //析构函数
+        numOfCats--;
+    }
+    virtual int getAge(){
+        return itsAge;
+    }
+    virtual void setAge(int age)
+    {
+        itsAge=age;
+    }
+    static int getNumOfCats()       //静态函数
+    {  
+        return numOfCats;
+    }
+private:
+    static int numOfCats;       //静态数据成员
+    int itsAge;
+};
+
+int Cat::numOfCats=0;       //静态数据成员的类外初始化
+
+void telepathicFunction()
+{
+    cout<<"There are "<<Cat::getNumOfCats()<<" cats alive!\n";
+}
+
+int main()
+{
+    const int maxCats=5;
+    Cat*catHouse[maxCats];
+    int i;
+    for(i=0;i<maxCats;i++)
+    {
+        catHouse[i]=new Cat(i);
+        telepathicFunction();
+    }
+
+    for(i=0;i<maxCats;i++)
+    {
+        delete catHouse[i];
+        telepathicFunction();
+    }
+    return 0;
+}
+```
+
+运行结果：
+
+```c++
+There are 1 cats alive!
+There are 2 cats alive!
+There are 3 cats alive!
+There are 4 cats alive!
+There are 5 cats alive!
+There are 4 cats alive!
+There are 3 cats alive!
+There are 2 cats alive!
+There are 1 cats alive!
+There are 0 cats alive!
+```
 
 
 
