@@ -1,13 +1,13 @@
-#include<iostream>
+s#include<iostream>
 using namespace std;
 
 class Cat
 {
 public:
-    Cat(int age):itsAge(age){       //¹¹Ôìº¯Êý
+    Cat(int age):itsAge(age){       //ï¿½ï¿½ï¿½ìº¯ï¿½ï¿½
         numOfCats++;
     }
-    virtual ~Cat(){                 //Îö¹¹º¯Êý
+    virtual ~Cat(){                 //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         numOfCats--;
     }
     virtual int getAge(){
@@ -17,16 +17,16 @@ public:
     {
         itsAge=age;
     }
-    static int getNumOfCats()       //¾²Ì¬º¯Êý
+    static int getNumOfCats()       //ï¿½ï¿½Ì¬ï¿½ï¿½ï¿½ï¿½
     {  
         return numOfCats;
     }
 private:
-    static int numOfCats;       //¾²Ì¬Êý¾Ý³ÉÔ±
+    static int numOfCats;       //ï¿½ï¿½Ì¬ï¿½ï¿½ï¿½Ý³ï¿½Ô±
     int itsAge;
 };
 
-int Cat::numOfCats=0;       //¾²Ì¬Êý¾Ý³ÉÔ±µÄÀàÍâ³õÊ¼»¯
+int Cat::numOfCats=0;       //ï¿½ï¿½Ì¬ï¿½ï¿½ï¿½Ý³ï¿½Ô±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¼ï¿½ï¿½
 
 void telepathicFunction()
 {
