@@ -1,24 +1,24 @@
 #include<iostream>
 using namespace std;
 
-class Base0{        //定义基类Base0
+class Base0{        //瀹氫箟鍩虹被Base0
 public:
     int var0;
     void fun0(){cout<<"Member of Base0"<<endl;}
 };
 
-class Base1:virtual public Base0{   //定义派生类Base1
+class Base1:virtual public Base0{   //瀹氫箟娲剧敓绫籅ase1
 public:
-    int var1;               //新增外部接口
+    int var1;               //鏂板澶栭儴鎺ュ彛
 };
 
-class Base2:virtual public Base0{   //定义派生类Base2
+class Base2:virtual public Base0{   //瀹氫箟娲剧敓绫籅ase2
 public:
-    int var2;                       //新增外部接口
+    int var2;                       //鏂板澶栭儴鎺ュ彛
 };
 
-class Derived:public Base1,public Base2{    //定义派生类Derived
-public:                             //新增外部接口
+class Derived:public Base1,public Base2{    //瀹氫箟娲剧敓绫籇erived
+public:                             //鏂板澶栭儴鎺ュ彛
     int var;
     void fun(){cout<<"Member of Derived"<<endl;}
 };
@@ -26,7 +26,7 @@ public:                             //新增外部接口
 int main()
 {
     Derived d;
-    d.var0=2;       //直接访问虚基类的数据成员
-    d.fun0();        //直接访问虚基类的函数成员
+    d.var0=2;       //鐩存帴璁块棶铏氬熀绫荤殑鏁版嵁鎴愬憳
+    d.fun0();        //鐩存帴璁块棶铏氬熀绫荤殑鍑芥暟鎴愬憳
     return 0;
 }

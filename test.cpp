@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 s#include<iostream>
 using namespace std;
 
@@ -33,21 +34,15 @@ void telepathicFunction()
     cout<<"There are "<<Cat::getNumOfCats()<<" cats alive!\n";
 }
 
+=======
+#include <iostream>
+using namespace std;
+
+>>>>>>> 4ae1e979e98b8d10c7a788c9f3c6cab0f0ddb7d7
 int main()
 {
-    const int maxCats=5;
-    Cat*catHouse[maxCats];
-    int i;
-    for(i=0;i<maxCats;i++)
-    {
-        catHouse[i]=new Cat(i);
-        telepathicFunction();
-    }
-
-    for(i=0;i<maxCats;i++)
-    {
-        delete catHouse[i];
-        telepathicFunction();
-    }
+    int a=10;
+    a-=2*3;
+    cout<<a<<endl;
     return 0;
 }
