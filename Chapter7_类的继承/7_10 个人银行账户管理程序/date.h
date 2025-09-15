@@ -11,7 +11,7 @@ public:
     Date(int year,int month,int day);   //用年月日构造日期
     int getYear() const {return year;} //常成员函数，返回年
     int getMonth() const {return month;}    //返回月
-    int getDays() const {return day;}   //返回日
+    int getDay() const {return day;}   //返回日
     int getMaxDay() const {};   //判断当月有多少天
     bool isLeapYear() const {   //判断当年是否为闰年
         return year%4==0&&year%100!=0||year%400==0;
