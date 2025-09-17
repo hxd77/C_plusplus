@@ -1,3 +1,4 @@
+//建立一个新类Accumulator，由该类提供计算一项数值的按日累加之和所需的接口
 #ifndef __ACCUMULATOR__H__
 #define __ACCUMULATOR__H__
 #include"date.h"

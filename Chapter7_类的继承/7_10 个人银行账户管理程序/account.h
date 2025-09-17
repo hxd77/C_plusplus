@@ -11,16 +11,20 @@ private:
     static double total;    //所有账户的总金额
 protected:
     //供派生类调用的构造函数，id为账户
-    Account(const Date&date,double amount,const string &desc);
+    Account(const Date&date,const string &id);
+    //记录一笔账，date为日期，amount为金额，desc为说明
+    void record(const Date&date,double amount, const string&desc);
     //报告错误信息
     void error(const string &msg) const;
 public:
     const string &getId()const{return id;}
-    double getBalance()const{return balance;}
+    double getBalance()const{return balance;}   //返回余额
     static double getTotal(){return total;}
     //显示账户信息
     void show()const;
 };
+
+
 class SavingsAccount:public Account{    //储蓄账户类
 private:
     Accumulator acc;        //辅助计算利息的累加群
@@ -32,11 +36,41 @@ public:
     //存入现金
     void deposit(const Date&date,double amount,const string&desc);
     //取出现金
-    void settle(const Date&date,double amount,const string&desc);
+    void withdraw(const Date&date,double amount,const string&desc);
     void settle(const Date&date);               //结算利息，每年1月日调用一次该函数
 };
-class CreditAccount:public Account{     //信用账户类
-    
 
-}
+
+class CreditAccount:public Account{     //信用账户类
+private:
+    Accumulator acc;    //辅助计算利息的累加器
+    double credit;      //信用额度
+    double rate;        //欠款的日利率
+    double fee;         //信用卡年费
+    double getDebt() const{ //获得欠款额
+        double balance=getBalance();
+        return (balance>0?balance:0);       //看是否有余额
+    }
+public:
+    //构造函数
+    CreditAccount(const Date&date,const string &id,double credit,double rate,double fee);
+    double getCredit() const{return credit;}
+    double getRate()const{return rate;}
+    double getFee()const{return fee;}
+    double getAvailableCredit()const{       //获得可用信用
+        if(getBalance()<0)      //检查是否还有余额
+        {
+            return credit+getBalance();//欠款+信用额度
+        }
+        else{
+            return credit;
+        }
+    }
+    //存入现金
+    void deposit(const Date&date,double amount,const string&desc);
+    //取出现金
+    void withdraw(const Date&date,double amount,const string&desc);
+    void settle(const Date&date);       //结算利息和年费，每月1日调用一次该函数，信用账户需要交年费
+    void show()const;
+};
 #endif
