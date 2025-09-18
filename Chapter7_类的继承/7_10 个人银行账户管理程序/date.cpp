@@ -18,7 +18,7 @@ Date::Date(int year,int month,int day):year(year),month(month),day(day){
     }
     int years=year-1;
     totalDays=years*365+years/4-years/100+years/400+DAYS_BEFORE_MONTH[month-1]+day;
-    if(isLeapYear&&month>2)totalDays++;
+    if(isLeapYear()&&month>2)totalDays++;
 }
 
 int Date::getMaxDay() const

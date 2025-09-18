@@ -15,7 +15,7 @@ void Account::record(const Date&date,double amount,const string&desc)
     amount=floor(amount*100+0.5)/100;   //floor表示向下取整保留小数点后两位
     balance+=amount;total+=amount;
     date.show();    //输出当前日期
-    cout<<"\t#"<<id<<"\t"<<amount<<"\t"<<balance<<desc<<endl;
+    cout<<"\t#"<<id<<"\t"<<amount<<"\t"<<balance<<"\t"<<desc<<endl;
 }
 
 void Account::show()const{cout<<id<<"\tBalance:"<<balance<<endl;}

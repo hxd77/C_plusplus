@@ -12,9 +12,9 @@ public:
     int getYear() const {return year;} //常成员函数，返回年
     int getMonth() const {return month;}    //返回月
     int getDay() const {return day;}   //返回日
-    int getMaxDay() const {};   //判断当月有多少天
+    int getMaxDay() const ;   //判断当月有多少天
     bool isLeapYear() const {   //判断当年是否为闰年
-        return year%4==0&&year%100!=0||year%400==0;
+        return year%4==0 && year%100!=0||year%400==0;
     }
     void show() const ;     //输出当前日期
     //计算两个日期之间相差多少天
