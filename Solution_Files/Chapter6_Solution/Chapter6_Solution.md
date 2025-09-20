@@ -82,3 +82,87 @@ int *pInteger=new int [10];
 
 
 
+### 6-10 声明一个有5个元素的int型数组，在程序中提示用户输入元素值，最后再在屏幕上显示出来。
+
+解：源程序
+
+```c++
+#include<iostream>
+using namespace std;
+
+int main()
+{
+	int myArray[5];
+	int i;
+	for(i=0;i<5;i++)
+	{
+		cout<<"Value for myArray["<<i<<"]: ";
+		cin>>myArray[i];
+	}
+	for(i=0;i<5;i++)
+	{
+		cout<<i<<": "<<myArray[i]<<endl;
+	}
+	return 0;
+}
+```
+
+程序运行输出：
+
+```
+Value for myArray[0]: 2
+Value for myArray[1]: 5
+Value for myArray[2]: 7
+Value for myArray[3]: 8
+Value for myArray[4]: 3
+0: 2
+1: 5
+2: 7
+3: 8
+4: 3
+```
+
+
+
+
+
+### 6-11 引用和指针有何区别？何时只能使用指针而不能使用引用？
+
+解：引用是一个别名，不能为NULL值，不能被重新分配；指针是一个存放地址的变量。当需要对变量重新赋值以另外的地址或赋值为NULL时只能使用指针。
+
+
+
+### 6-12 声明下列指针：float类型变量的指针pfloat，char类型的指针pstr和struct Customer型的指针pcus。
+
+解：
+
+```c++
+float *pfloat;
+char *pstr;
+struct customer*pcus;
+```
+
+
+
+### 6-13 给定float类型的指针fp，写出显示fp所指向的值的输出流语句。
+
+解：
+
+```c++
+cout<<"Value=="<<*fp;
+```
+
+
+
+### 6-14 在程序中声明一个double类型变量的指针，分别显示指针占了多少字节和指针所指的变量占了多少字节。
+
+解：
+
+```c++
+double *counter;
+cout<<"\nSize of pointer=="<<sizeof(counter);
+cout<<"\nSize of addressed value=="<<sizeof(*counter);
+```
+
+
+
