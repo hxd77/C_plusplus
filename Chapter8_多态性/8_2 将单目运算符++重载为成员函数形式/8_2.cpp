@@ -5,7 +5,7 @@ public:
     Clock(int hout=0,int minute=0,int second=0);
     void showTime()const;
     Clock&operator++();     //前置单目运算符重载
-    Clock&operator++(int);  //后置单目运算符重载
+    Clock operator++(int);  //后置单目运算符重载
 private:
     int hour,minute,second;
 };
@@ -44,3 +44,23 @@ Clock & Clock::operator++()     //前置单目运算符重载函数
     return *this;
 }
 
+Clock Clock::operator++(int)        //后置单目运算符
+{
+    //注意形参表中的整型参数
+    Clock old=*this;   //保存当前对象的值
+    ++(*this);        //调用前置++运算符
+    return old;       //返回旧值
+}
+
+int main()
+{
+    Clock myClock(23,59,59);
+    cout<<"First time output: ";
+    myClock.showTime();
+    cout<<"Show myClock++:      ";
+    (myClock++).showTime();   //后置++
+    cout<<"Show ++myClock:      ";
+    (++myClock).showTime();   //前置++
+    return 0;
+
+}
