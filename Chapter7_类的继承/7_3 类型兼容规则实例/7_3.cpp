@@ -1,25 +1,25 @@
-//ÀàĞÍ¼æÈİ¹æÔòÊµÀı
+//ï¿½ï¿½ï¿½Í¼ï¿½ï¿½İ¹ï¿½ï¿½ï¿½Êµï¿½ï¿½
 #include<iostream>
 using namespace std;
 
-class Base1{        //»ùÀàBase1¶¨Òå
+class Base1{        //ï¿½ï¿½ï¿½ï¿½Base1ï¿½ï¿½ï¿½ï¿½
 public:
     void display() const{cout<<"Base1::display()"<<endl;}
 };
 
-class Base2:public Base1{       //¹«ÓĞÅÉÉúÀàBase2¶¨Òå
+class Base2:public Base1{       //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Base2ï¿½ï¿½ï¿½ï¿½
 public:
     void display() const{cout<<"Base2::display()"<<endl;}
 };
 
-class Derived:public Base2{     //¹«ÓĞÅÉÉúÀàDerived¶¨Òå
+class Derived:public Base2{     //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Derivedï¿½ï¿½ï¿½ï¿½
 public:
     void display() const{cout<<"Derived::display()"<<endl;}
 };
 
-void fun(Base1*ptr)         //²ÎÊıÎªÖ¸Ïò»ùÀà¶ÔÏóµÄÖ¸Õë
+void fun(Base1*ptr)         //ï¿½ï¿½ï¿½ï¿½ÎªÖ¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½
 {
-    ptr->display();         //¡°¶ÔÏóÖ¸Õë->³ÉÔ±Ãû¡±
+    ptr->display();         //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½->ï¿½ï¿½Ô±ï¿½ï¿½ï¿½ï¿½
 }
 
 int main()

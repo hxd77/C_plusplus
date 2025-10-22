@@ -1,18 +1,79 @@
 #include<iostream>
 using namespace std;
+enum myColor{BLACK,WHITE};
+class Mammal{
+public:
+	//constructors
+	Mammal();
+	~Mammal();
+
+	//accessors
+	int getAge() const{
+		return itsAge;
+	}
+	void setAge(int age)
+	{
+		itsAge=age;
+	}
+	int getWeight() const
+	{
+		return itsWeight;
+	}
+	void setWeight(int weight)
+	{
+		itsWeight=weight;
+	}
+	//other methods
+	void speak()const{
+		cout<<"Mammal sound!\n";
+	}
+protected:
+	int itsAge;
+	int itsWeight;
+};
+
+class Dog:public Mammal
+{
+public:
+	Dog();
+	~Dog();
+
+	myColor getColor() const{
+		return itsColor;
+	}
+	void setColor(myColor color)
+	{
+		itsColor=color;
+	}
+	void wagTail()
+	{
+		cout<<"Tail waggling...\n";
+	}
+private:
+	myColor itsColor;
+};
+
+Mammal::Mammal():itsAge(1),itsWeight(5){
+	cout<<"Mammal constructor...\n";
+}
+
+Mammal::~Mammal(){
+	cout<<"Mammal destructor...\n";
+}
+
+Dog::Dog():itsColor(WHITE){
+	cout<<"Dog constructor...\n";
+}
+
+Dog::~Dog(){
+	cout<<"Dog deconstructor...\n";
+}
 
 int main()
 {
-	int myArray[5];
-	int i;
-	for(i=0;i<5;i++)
-	{
-		cout<<"Value for myArray["<<i<<"]: ";
-		cin>>myArray[i];
-	}
-	for(i=0;i<5;i++)
-	{
-		cout<<i<<": "<<myArray[i]<<endl;
-	}
+	Dog jack;
+	jack.speak();
+	jack.wagTail();
+	cout<<" jack is "<<jack.getAge()<<" years old\n";
 	return 0;
 }

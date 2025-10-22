@@ -12,7 +12,6 @@
     <img src="https://img.shields.io/badge/Visual%20Studio-5C2D91.svg?style=for-the-badge&logo=visual-studio&logoColor=white">
     <img src="https://img.shields.io/badge/Windows%2011-%230079d5.svg?style=for-the-badge&logo=Windows%2011&logoColor=white" alt="Package version">
     </p>
-
 ## 首先声明：
 
 本书主要参考了[C++语言程序设计（第5版）](https://baike.baidu.com/item/C%2B%2B语言程序设计（第5版）/56870972)：
