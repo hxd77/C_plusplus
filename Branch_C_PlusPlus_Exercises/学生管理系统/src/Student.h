@@ -20,7 +20,7 @@ public:
     string getAddrAtIndex(int index);
     int getmPosition(long index);
 private:
-    vector<long>mNUm;//学号
+    vector<long>mNum;//学号
     vector<string>mName;//姓名
     vector<int>mSex;//性别
     vector<int>mAge;//年龄
