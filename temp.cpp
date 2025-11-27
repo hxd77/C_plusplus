@@ -1,79 +1,30 @@
 #include<iostream>
+#include<string>
 using namespace std;
-enum myColor{BLACK,WHITE};
-class Mammal{
+
+class MyString{
 public:
-	//constructors
-	Mammal();
-	~Mammal();
+	MyString();
+	MyString(const char*str);
+	MyString(const MyString&s);
+	~MyString();
 
-	//accessors
-	int getAge() const{
-		return itsAge;
-	}
-	void setAge(int age)
-	{
-		itsAge=age;
-	}
-	int getWeight() const
-	{
-		return itsWeight;
-	}
-	void setWeight(int weight)
-	{
-		itsWeight=weight;
-	}
-	//other methods
-	void speak()const{
-		cout<<"Mammal sound!\n";
-	}
-protected:
-	int itsAge;
-	int itsWeight;
-};
+	char &operator[](unsigned short offset);//返回引用可以修改数据，适用于非const对象
+	char operator[](unsigned short offset)const;//返回char型，不可以修改数据适用于const常对象
+	MyString operator+(const MyString&s);
+	void operator+=(const MyString&s);
+	MyString &operator=(const MyString&s);//重载=号
 
-class Dog:public Mammal
-{
-public:
-	Dog();
-	~Dog();
-
-	myColor getColor() const{
-		return itsColor;
+	unsigned short getLen()const{
+		return itsLen;
 	}
-	void setColor(myColor color)
-	{
-		itsColor=color;
-	}
-	void wagTail()
-	{
-		cout<<"Tail waggling...\n";
+	const char*getMyString() const {
+		return itsMyString;
 	}
 private:
-	myColor itsColor;
+	MyString(unsigned short s);//私有构造函数体
+	char *itsMyString;
+	unsigned short itsLen;
 };
 
-Mammal::Mammal():itsAge(1),itsWeight(5){
-	cout<<"Mammal constructor...\n";
-}
-
-Mammal::~Mammal(){
-	cout<<"Mammal destructor...\n";
-}
-
-Dog::Dog():itsColor(WHITE){
-	cout<<"Dog constructor...\n";
-}
-
-Dog::~Dog(){
-	cout<<"Dog deconstructor...\n";
-}
-
-int main()
-{
-	Dog jack;
-	jack.speak();
-	jack.wagTail();
-	cout<<" jack is "<<jack.getAge()<<" years old\n";
-	return 0;
-}
+MyString::MyString
