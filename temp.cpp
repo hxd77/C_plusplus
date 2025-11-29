@@ -1,79 +1,10 @@
-#include<iostream>
-using namespace std;
-enum myColor{BLACK,WHITE};
-class Mammal{
-public:
-	//constructors
-	Mammal();
-	~Mammal();
-
-	//accessors
-	int getAge() const{
-		return itsAge;
-	}
-	void setAge(int age)
-	{
-		itsAge=age;
-	}
-	int getWeight() const
-	{
-		return itsWeight;
-	}
-	void setWeight(int weight)
-	{
-		itsWeight=weight;
-	}
-	//other methods
-	void speak()const{
-		cout<<"Mammal sound!\n";
-	}
-protected:
-	int itsAge;
-	int itsWeight;
-};
-
-class Dog:public Mammal
+for(int i=0;i<11;i++)
 {
-public:
-	Dog();
-	~Dog();
-
-	myColor getColor() const{
-		return itsColor;
-	}
-	void setColor(myColor color)
+	for(int j=0;j<4;j++)
 	{
-		itsColor=color;
+		for(int k=0;k<4;k++)
+		{
+			tempState[j+i*4].wordKey[k]=w[k+i*4].wordKey[j];
+		}
 	}
-	void wagTail()
-	{
-		cout<<"Tail waggling...\n";
-	}
-private:
-	myColor itsColor;
-};
-
-Mammal::Mammal():itsAge(1),itsWeight(5){
-	cout<<"Mammal constructor...\n";
-}
-
-Mammal::~Mammal(){
-	cout<<"Mammal destructor...\n";
-}
-
-Dog::Dog():itsColor(WHITE){
-	cout<<"Dog constructor...\n";
-}
-
-Dog::~Dog(){
-	cout<<"Dog deconstructor...\n";
-}
-
-int main()
-{
-	Dog jack;
-	jack.speak();
-	jack.wagTail();
-	cout<<" jack is "<<jack.getAge()<<" years old\n";
-	return 0;
 }
