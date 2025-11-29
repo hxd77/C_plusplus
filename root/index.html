@@ -1,169 +1,347 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="zh-CN" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>C++ 学习之路 - GitHub Repository</title>
+    <!-- 引入 Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- 配置 Tailwind 支持深色模式 -->
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        dark: {
+                            bg: '#0f172a',
+                            card: '#1e293b',
+                            text: '#f1f5f9',
+                            muted: '#94a3b8'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- 引入 FontAwesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- 引入 Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
     
     <style>
         body { font-family: 'Inter', sans-serif; }
+        
+        /* 渐变文字效果 */
         .gradient-text {
-            background: linear-gradient(to right, #00599C, #0078d7);
+            background: linear-gradient(to right, #2563eb, #06b6d4);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
+        .dark .gradient-text {
+            background: linear-gradient(to right, #60a5fa, #22d3ee);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* 卡片悬停效果 */
         .hover-card {
-            transition: all 0.3s ease;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
         .hover-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+        }
+        .dark .hover-card:hover {
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5), 0 8px 10px -6px rgba(0, 0, 0, 0.5);
+        }
+
+        /* 复制成功的动画 */
+        @keyframes pulse-green {
+            0% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(34, 197, 94, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); }
+        }
+        .copy-success {
+            animation: pulse-green 1s;
+            border-color: #22c55e !important;
         }
     </style>
 </head>
-<body class="bg-gray-50 text-gray-800">
+<body class="bg-gray-50 text-gray-800 transition-colors duration-300 dark:bg-dark-bg dark:text-dark-text flex flex-col min-h-screen">
 
-    <header class="bg-white shadow-sm sticky top-0 z-50">
+    <!-- 顶部导航 -->
+    <header class="bg-white/90 backdrop-blur-md shadow-sm sticky top-0 z-50 transition-colors duration-300 dark:bg-dark-card/90 dark:border-b dark:border-gray-700">
         <div class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <div class="flex items-center space-x-2">
-                <i class="fa-brands fa-cuttlefish text-blue-600 text-2xl"></i>
-                <span class="font-bold text-xl tracking-tight">C++ Learning Path</span>
+            <div class="flex items-center space-x-3">
+                <div class="bg-blue-600 text-white p-2 rounded-lg">
+                    <i class="fa-brands fa-cuttlefish text-xl"></i>
+                </div>
+                <span class="font-bold text-xl tracking-tight hidden sm:block">C++ Learning Path</span>
             </div>
-            <a href="https://github.com/hxd77/C_plusplus" target="_blank" class="bg-gray-900 text-white px-5 py-2 rounded-full font-medium hover:bg-gray-700 transition flex items-center gap-2">
-                <i class="fa-brands fa-github"></i> 访问仓库
-            </a>
+            
+            <div class="flex items-center gap-4">
+                <!-- 深色模式切换按钮 -->
+                <button id="theme-toggle" class="p-2 rounded-full text-gray-500 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700 transition focus:outline-none" title="切换深色/浅色模式">
+                    <i class="fa-solid fa-moon text-xl block dark:hidden"></i>
+                    <i class="fa-solid fa-sun text-xl hidden dark:block text-yellow-400"></i>
+                </button>
+
+                <a href="https://github.com/hxd77/C_plusplus" target="_blank" class="bg-gray-900 text-white px-5 py-2 rounded-full font-medium hover:bg-gray-700 dark:bg-blue-600 dark:hover:bg-blue-500 transition flex items-center gap-2 shadow-lg">
+                    <i class="fa-brands fa-github"></i>
+                    <span class="hidden sm:inline">Star on GitHub</span>
+                </a>
+            </div>
         </div>
     </header>
 
-    <main class="container mx-auto px-6 py-12">
+    <!-- 主要内容区域 -->
+    <main class="container mx-auto px-6 py-12 flex-grow">
         
-        <div class="text-center max-w-4xl mx-auto mb-16">
-            <div class="mb-6 flex justify-center">
-                <img src="https://cdn.jsdelivr.net/gh/hxd77/BlogImage/Blog/20250704152807265.png" alt="C++ Banner" class="rounded-xl shadow-lg max-h-64 object-cover w-full">
+        <!-- Hero 区域 -->
+        <div class="text-center max-w-4xl mx-auto mb-16 animate-fade-in-up">
+            <!-- 图片容器 -->
+            <div class="mb-8 flex justify-center relative group">
+                <div class="absolute -inset-1 bg-gradient-to-r from-blue-600 to-cyan-600 rounded-2xl blur opacity-25 group-hover:opacity-50 transition duration-1000 group-hover:duration-200"></div>
+                <img src="https://cdn.jsdelivr.net/gh/hxd77/BlogImage/Blog/20250704152807265.png" alt="C++ Banner" class="relative rounded-xl shadow-2xl max-h-72 object-cover w-full border border-gray-100 dark:border-gray-700">
             </div>
             
-            <h1 class="text-4xl md:text-5xl font-extrabold mb-4">
+            <h1 class="text-4xl md:text-6xl font-extrabold mb-6 tracking-tight">
                 探索 <span class="gradient-text">C++ 学习之路</span>
             </h1>
-            <p class="text-lg text-gray-600 mb-8">
-                一份循序渐进的代码仓库，记录 C++ 从入门到精通的核心知识体系。
+            <p class="text-lg md:text-xl text-gray-600 dark:text-dark-muted mb-10 max-w-2xl mx-auto leading-relaxed">
+                一份从零开始的系统性学习指南。这里不仅有代码，更有一条清晰的成长路径，助你构建坚实的 C++ 知识堡垒。
             </p>
 
-            <div class="flex flex-wrap justify-center gap-3 mb-8">
-                <img src="https://img.shields.io/badge/c++-%2300599C.svg?style=for-the-badge&logo=c%2B%2B&logoColor=white" alt="C++">
-                <img src="https://img.shields.io/badge/Visual%20Studio%20Code-0078d7.svg?style=for-the-badge&logo=visual-studio-code&logoColor=white" alt="VS Code">
-                <img src="https://img.shields.io/badge/Visual%20Studio-5C2D91.svg?style=for-the-badge&logo=visual-studio&logoColor=white" alt="Visual Studio">
-                <img src="https://img.shields.io/badge/Windows%2011-%230079d5.svg?style=for-the-badge&logo=Windows%2011&logoColor=white" alt="Windows 11">
+            <!-- 徽章区域 -->
+            <div class="flex flex-wrap justify-center gap-3 mb-10 opacity-90">
+                <img src="https://img.shields.io/badge/c++-%2300599C.svg?style=for-the-badge&logo=c%2B%2B&logoColor=white" alt="C++" class="shadow-sm">
+                <img src="https://img.shields.io/badge/Visual%20Studio%20Code-0078d7.svg?style=for-the-badge&logo=visual-studio-code&logoColor=white" alt="VS Code" class="shadow-sm">
+                <img src="https://img.shields.io/badge/Windows%2011-%230079d5.svg?style=for-the-badge&logo=Windows%2011&logoColor=white" alt="Windows 11" class="shadow-sm">
+            </div>
+
+            <!-- 复制命令区域 (新功能) -->
+            <div class="max-w-xl mx-auto bg-gray-800 text-gray-300 rounded-xl p-2 flex items-center justify-between shadow-xl border border-gray-700 overflow-hidden relative" id="copy-container">
+                <div class="flex items-center px-4 overflow-hidden">
+                    <span class="text-green-400 mr-3 select-none">$</span>
+                    <code class="font-mono text-sm truncate" id="clone-command">git clone https://github.com/hxd77/C_plusplus.git</code>
+                </div>
+                <button onclick="copyCommand()" class="bg-gray-700 hover:bg-gray-600 text-white px-4 py-2 rounded-lg transition-all active:scale-95 flex-shrink-0 flex items-center gap-2 group border border-gray-600" id="copy-btn">
+                    <i class="fa-regular fa-copy group-hover:scale-110 transition-transform"></i>
+                    <span class="text-sm font-medium">Copy</span>
+                </button>
+                <!-- 复制成功的提示气泡 -->
+                <div id="copy-tooltip" class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-green-500 text-white text-xs font-bold px-3 py-1 rounded shadow-lg opacity-0 transition-opacity duration-300 pointer-events-none">
+                    Copied!
+                </div>
             </div>
         </div>
 
-        <div class="bg-blue-50 border-l-4 border-blue-600 p-6 rounded-r-lg mb-16 max-w-3xl mx-auto">
+        <!-- 参考教材声明 -->
+        <div class="bg-white dark:bg-dark-card border-l-4 border-blue-600 p-6 rounded-r-lg mb-16 max-w-3xl mx-auto shadow-md transition-colors duration-300">
             <div class="flex items-start">
-                <i class="fa-solid fa-book-open text-blue-600 text-2xl mr-4 mt-1"></i>
+                <div class="bg-blue-100 dark:bg-blue-900/30 p-2 rounded-full mr-4">
+                    <i class="fa-solid fa-book-open text-blue-600 dark:text-blue-400 text-xl"></i>
+                </div>
                 <div>
-                    <h3 class="font-bold text-lg text-gray-900">核心参考教材</h3>
-                    <p class="text-gray-700 mt-1">
-                        本项目代码与结构主要参考 
-                        <a href="https://baike.baidu.com/item/C%2B%2B语言程序设计（第5版）/56870972" target="_blank" class="text-blue-600 underline hover:text-blue-800 font-medium">
-                            《C++语言程序设计（第5版）》
-                        </a>。旨在通过实践加深对理论的理解。
+                    <h3 class="font-bold text-lg text-gray-900 dark:text-white">核心参考教材</h3>
+                    <p class="text-gray-600 dark:text-dark-muted mt-1 leading-relaxed">
+                        本项目不仅是代码仓库，更是<a href="https://baike.baidu.com/item/C%2B%2B语言程序设计（第5版）/56870972" target="_blank" class="text-blue-600 dark:text-blue-400 hover:underline font-medium">《C++语言程序设计（第5版）》</a>的实践伴侣。理论与实践结合，让学习更高效。
                     </p>
                 </div>
             </div>
         </div>
 
-        <div class="max-w-5xl mx-auto">
-            <h2 class="text-3xl font-bold text-gray-900 mb-10 text-center relative">
-                <span class="border-b-4 border-blue-500 pb-2">课程大纲 (Syllabus)</span>
-            </h2>
+        <!-- 章节列表 -->
+        <div class="max-w-6xl mx-auto">
+            <div class="flex items-center justify-center mb-10">
+                <h2 class="text-3xl font-bold text-gray-900 dark:text-white relative inline-block">
+                    课程大纲 <span class="text-blue-600">Syllabus</span>
+                    <div class="absolute -bottom-2 left-0 w-full h-1 bg-gradient-to-r from-blue-600 to-transparent rounded-full"></div>
+                </h2>
+            </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 
-                <div class="bg-white p-6 rounded-xl border border-gray-100 shadow-sm hover-card group">
-                    <div class="flex items-center justify-between mb-4">
-                        <span class="bg-blue-100 text-blue-800 text-xs font-bold px-3 py-1 rounded-full">Chapter 1</span>
-                        <i class="fa-solid fa-flag text-gray-300 group-hover:text-blue-500 transition"></i>
+                <!-- 卡片模板 (JS 也可以生成，但为了SEO和直观直接写HTML) -->
+                <!-- Chapter 1 -->
+                <div class="bg-white dark:bg-dark-card p-6 rounded-2xl border border-gray-100 dark:border-gray-700 shadow-sm hover-card group relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-24 h-24 bg-blue-50 dark:bg-blue-900/10 rounded-bl-full -mr-4 -mt-4 transition-transform group-hover:scale-110"></div>
+                    <div class="relative z-10">
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="bg-blue-100 dark:bg-blue-900/50 text-blue-800 dark:text-blue-300 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">Chapter 1</span>
+                            <i class="fa-solid fa-flag text-gray-300 dark:text-gray-600 group-hover:text-blue-500 transition text-xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-800 dark:text-white mb-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">Introduction</h3>
+                        <p class="text-gray-500 dark:text-dark-muted text-sm line-clamp-2">C++ 语言的历史背景、特点以及开发环境（IDE）的安装与配置。</p>
                     </div>
-                    <h3 class="text-xl font-bold text-gray-800 mb-2">Introduction</h3>
-                    <p class="text-gray-500 text-sm">C++ 简介与开发环境搭建。</p>
                 </div>
 
-                <div class="bg-white p-6 rounded-xl border border-gray-100 shadow-sm hover-card group">
-                    <div class="flex items-center justify-between mb-4">
-                        <span class="bg-blue-100 text-blue-800 text-xs font-bold px-3 py-1 rounded-full">Chapter 2</span>
-                        <i class="fa-solid fa-code text-gray-300 group-hover:text-blue-500 transition"></i>
+                <!-- Chapter 2 -->
+                <div class="bg-white dark:bg-dark-card p-6 rounded-2xl border border-gray-100 dark:border-gray-700 shadow-sm hover-card group relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-24 h-24 bg-indigo-50 dark:bg-indigo-900/10 rounded-bl-full -mr-4 -mt-4 transition-transform group-hover:scale-110"></div>
+                    <div class="relative z-10">
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="bg-indigo-100 dark:bg-indigo-900/50 text-indigo-800 dark:text-indigo-300 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">Chapter 2</span>
+                            <i class="fa-solid fa-code text-gray-300 dark:text-gray-600 group-hover:text-indigo-500 transition text-xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-800 dark:text-white mb-2 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">Basic Program Design</h3>
+                        <p class="text-gray-500 dark:text-dark-muted text-sm line-clamp-2">基本数据类型、运算符、表达式以及流程控制语句（if, switch, loop）。</p>
                     </div>
-                    <h3 class="text-xl font-bold text-gray-800 mb-2">Basic Program Design</h3>
-                    <p class="text-gray-500 text-sm">基础语法、数据类型与控制结构。</p>
                 </div>
 
-                <div class="bg-white p-6 rounded-xl border border-gray-100 shadow-sm hover-card group">
-                    <div class="flex items-center justify-between mb-4">
-                        <span class="bg-blue-100 text-blue-800 text-xs font-bold px-3 py-1 rounded-full">Chapter 3</span>
-                        <i class="fa-solid fa-cube text-gray-300 group-hover:text-blue-500 transition"></i>
+                <!-- Chapter 3 -->
+                <div class="bg-white dark:bg-dark-card p-6 rounded-2xl border border-gray-100 dark:border-gray-700 shadow-sm hover-card group relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-24 h-24 bg-cyan-50 dark:bg-cyan-900/10 rounded-bl-full -mr-4 -mt-4 transition-transform group-hover:scale-110"></div>
+                    <div class="relative z-10">
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="bg-cyan-100 dark:bg-cyan-900/50 text-cyan-800 dark:text-cyan-300 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">Chapter 3</span>
+                            <i class="fa-solid fa-cube text-gray-300 dark:text-gray-600 group-hover:text-cyan-500 transition text-xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-800 dark:text-white mb-2 group-hover:text-cyan-600 dark:group-hover:text-cyan-400 transition-colors">Function</h3>
+                        <p class="text-gray-500 dark:text-dark-muted text-sm line-clamp-2">函数的定义与声明、参数传递机制、内联函数以及函数重载。</p>
                     </div>
-                    <h3 class="text-xl font-bold text-gray-800 mb-2">Function</h3>
-                    <p class="text-gray-500 text-sm">函数定义、参数传递与模块化编程。</p>
                 </div>
 
-                <div class="bg-white p-6 rounded-xl border border-gray-100 shadow-sm hover-card group">
-                    <div class="flex items-center justify-between mb-4">
-                        <span class="bg-purple-100 text-purple-800 text-xs font-bold px-3 py-1 rounded-full">Core</span>
-                        <i class="fa-solid fa-shapes text-gray-300 group-hover:text-purple-500 transition"></i>
+                <!-- Chapter 4 -->
+                <div class="bg-white dark:bg-dark-card p-6 rounded-2xl border-l-4 border-purple-500 border-t border-r border-b border-gray-100 dark:border-gray-700 shadow-md hover-card group relative overflow-hidden col-span-1 md:col-span-2 lg:col-span-1">
+                    <div class="absolute top-0 right-0 w-24 h-24 bg-purple-50 dark:bg-purple-900/10 rounded-bl-full -mr-4 -mt-4 transition-transform group-hover:scale-110"></div>
+                    <div class="relative z-10">
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="bg-purple-100 dark:bg-purple-900/50 text-purple-800 dark:text-purple-300 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">Core Concept</span>
+                            <i class="fa-solid fa-shapes text-gray-300 dark:text-gray-600 group-hover:text-purple-500 transition text-xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-800 dark:text-white mb-2 group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors">Classes and Objects</h3>
+                        <p class="text-gray-500 dark:text-dark-muted text-sm">面向对象编程的核心。封装、构造函数、析构函数与类的组合。</p>
                     </div>
-                    <h3 class="text-xl font-bold text-gray-800 mb-2">Classes and Objects</h3>
-                    <p class="text-gray-500 text-sm">面向对象编程核心：类与对象的构建。</p>
                 </div>
 
-                <div class="bg-white p-6 rounded-xl border border-gray-100 shadow-sm hover-card group">
-                    <div class="flex items-center justify-between mb-4">
-                        <span class="bg-blue-100 text-blue-800 text-xs font-bold px-3 py-1 rounded-full">Chapter 5</span>
-                        <i class="fa-solid fa-shield-halved text-gray-300 group-hover:text-blue-500 transition"></i>
+                <!-- Chapter 5 -->
+                <div class="bg-white dark:bg-dark-card p-6 rounded-2xl border border-gray-100 dark:border-gray-700 shadow-sm hover-card group relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-24 h-24 bg-red-50 dark:bg-red-900/10 rounded-bl-full -mr-4 -mt-4 transition-transform group-hover:scale-110"></div>
+                    <div class="relative z-10">
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="bg-red-100 dark:bg-red-900/50 text-red-800 dark:text-red-300 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">Chapter 5</span>
+                            <i class="fa-solid fa-shield-halved text-gray-300 dark:text-gray-600 group-hover:text-red-500 transition text-xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-800 dark:text-white mb-2 group-hover:text-red-600 dark:group-hover:text-red-400 transition-colors">Data Sharing & Protection</h3>
+                        <p class="text-gray-500 dark:text-dark-muted text-sm line-clamp-2">静态成员 (static)、友元 (friend) 以及常对象 (const) 的使用策略。</p>
                     </div>
-                    <h3 class="text-xl font-bold text-gray-800 mb-2">Data Sharing & Protection</h3>
-                    <p class="text-gray-500 text-sm">作用域、静态成员与 const 保护机制。</p>
                 </div>
 
-                <div class="bg-white p-6 rounded-xl border border-gray-100 shadow-sm hover-card group">
-                    <div class="flex items-center justify-between mb-4">
-                        <span class="bg-blue-100 text-blue-800 text-xs font-bold px-3 py-1 rounded-full">Chapter 6</span>
-                        <i class="fa-solid fa-arrow-pointer text-gray-300 group-hover:text-blue-500 transition"></i>
+                <!-- Chapter 6 -->
+                <div class="bg-white dark:bg-dark-card p-6 rounded-2xl border border-gray-100 dark:border-gray-700 shadow-sm hover-card group relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-24 h-24 bg-orange-50 dark:bg-orange-900/10 rounded-bl-full -mr-4 -mt-4 transition-transform group-hover:scale-110"></div>
+                    <div class="relative z-10">
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="bg-orange-100 dark:bg-orange-900/50 text-orange-800 dark:text-orange-300 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">Chapter 6</span>
+                            <i class="fa-solid fa-arrow-pointer text-gray-300 dark:text-gray-600 group-hover:text-orange-500 transition text-xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-800 dark:text-white mb-2 group-hover:text-orange-600 dark:group-hover:text-orange-400 transition-colors">Arrays, Pointers & Strings</h3>
+                        <p class="text-gray-500 dark:text-dark-muted text-sm line-clamp-2">深入理解内存地址。数组与指针的关系，以及字符串处理。</p>
                     </div>
-                    <h3 class="text-xl font-bold text-gray-800 mb-2">Arrays, Pointers & Strings</h3>
-                    <p class="text-gray-500 text-sm">内存管理、数组操作与指针详解。</p>
                 </div>
 
-                <div class="bg-white p-6 rounded-xl border border-gray-100 shadow-sm hover-card group col-span-1 md:col-span-2 lg:col-span-3 bg-gradient-to-r from-white to-blue-50">
-                    <div class="flex items-center justify-between mb-4">
-                        <span class="bg-green-100 text-green-800 text-xs font-bold px-3 py-1 rounded-full">Advanced</span>
-                        <i class="fa-solid fa-sitemap text-gray-300 group-hover:text-green-600 transition"></i>
+                <!-- Chapter 7 (Wide) -->
+                <div class="bg-gradient-to-br from-white to-green-50 dark:from-dark-card dark:to-green-900/20 p-6 rounded-2xl border border-gray-100 dark:border-gray-700 shadow-sm hover-card group relative overflow-hidden col-span-1 md:col-span-2 lg:col-span-3">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-green-100 dark:bg-green-900/20 rounded-bl-full -mr-6 -mt-6 transition-transform group-hover:scale-110"></div>
+                    <div class="relative z-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+                        <div class="flex-1">
+                            <div class="flex items-center justify-between md:justify-start gap-4 mb-2">
+                                <span class="bg-green-100 dark:bg-green-900/50 text-green-800 dark:text-green-300 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">Advanced</span>
+                                <i class="fa-solid fa-sitemap text-gray-300 dark:text-gray-600 group-hover:text-green-600 transition text-xl md:hidden"></i>
+                            </div>
+                            <h3 class="text-2xl font-bold text-gray-800 dark:text-white mb-2 group-hover:text-green-600 dark:group-hover:text-green-400 transition-colors">Class Inheritance</h3>
+                            <p class="text-gray-500 dark:text-dark-muted text-sm">继承与派生是代码复用的基石。本章讲解基类与派生类的关系、访问控制以及类型兼容性规则。</p>
+                        </div>
+                        <div class="hidden md:block bg-white dark:bg-gray-800 p-3 rounded-full shadow-sm group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-sitemap text-green-500 text-2xl"></i>
+                        </div>
                     </div>
-                    <h3 class="text-xl font-bold text-gray-800 mb-2">Class Inheritance</h3>
-                    <p class="text-gray-500 text-sm">继承与派生，代码复用与多态的基础。</p>
                 </div>
 
             </div>
         </div>
-
     </main>
 
-    <footer class="bg-gray-900 text-white py-8 mt-12">
+    <!-- 底部 Footer -->
+    <footer class="bg-white dark:bg-dark-card border-t border-gray-200 dark:border-gray-800 py-12 mt-12 transition-colors duration-300">
         <div class="container mx-auto px-6 text-center">
-            <p class="mb-4 text-gray-400">Copyright © 2025 C++ Learning Path</p>
-            <div class="flex justify-center space-x-6">
-                <a href="https://github.com/hxd77/C_plusplus" class="text-gray-400 hover:text-white transition">
-                    <i class="fa-brands fa-github text-2xl"></i>
+            <h4 class="text-lg font-semibold text-gray-800 dark:text-white mb-4">Ready to start coding?</h4>
+            <div class="flex justify-center space-x-6 mb-8">
+                <a href="https://github.com/hxd77/C_plusplus" class="transform hover:scale-110 transition duration-200 text-gray-400 hover:text-gray-900 dark:hover:text-white">
+                    <i class="fa-brands fa-github text-3xl"></i>
                 </a>
-                <a href="#" class="text-gray-400 hover:text-white transition">
-                    <i class="fa-solid fa-envelope text-2xl"></i>
+                <a href="#" class="transform hover:scale-110 transition duration-200 text-gray-400 hover:text-blue-500">
+                    <i class="fa-solid fa-envelope text-3xl"></i>
                 </a>
             </div>
-            <p class="text-xs text-gray-600 mt-4">Powered by Tailwind CSS & GitHub</p>
+            <p class="text-sm text-gray-500 dark:text-gray-400">
+                Copyright &copy; 2025 C++ Learning Path. All rights reserved.
+            </p>
+            <p class="text-xs text-gray-400 dark:text-gray-600 mt-2">
+                Designed with <i class="fa-solid fa-heart text-red-400 mx-1"></i> using Tailwind CSS
+            </p>
         </div>
     </footer>
 
+    <!-- JavaScript 交互逻辑 -->
+    <script>
+        // 1. 深色模式逻辑
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const htmlElement = document.documentElement;
+
+        // 检查本地存储或系统偏好
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            htmlElement.classList.add('dark');
+        } else {
+            htmlElement.classList.remove('dark');
+        }
+
+        themeToggleBtn.addEventListener('click', () => {
+            htmlElement.classList.toggle('dark');
+            
+            // 保存用户偏好
+            if (htmlElement.classList.contains('dark')) {
+                localStorage.theme = 'dark';
+            } else {
+                localStorage.theme = 'light';
+            }
+        });
+
+        // 2. 复制命令逻辑
+        function copyCommand() {
+            const commandText = document.getElementById('clone-command').innerText;
+            const container = document.getElementById('copy-container');
+            const tooltip = document.getElementById('copy-tooltip');
+            
+            // 创建临时的 textarea 元素来执行复制 (兼容性更好)
+            const textArea = document.createElement("textarea");
+            textArea.value = commandText;
+            document.body.appendChild(textArea);
+            textArea.select();
+            
+            try {
+                // 执行复制
+                document.execCommand('copy');
+                
+                // 视觉反馈
+                container.classList.add('copy-success');
+                tooltip.style.opacity = '1';
+                
+                // 1秒后移除效果
+                setTimeout(() => {
+                    container.classList.remove('copy-success');
+                    tooltip.style.opacity = '0';
+                }, 1500);
+                
+            } catch (err) {
+                console.error('无法复制', err);
+                alert('复制失败，请手动复制');
+            }
+            
+            document.body.removeChild(textArea);
+        }
+    </script>
 </body>
 </html>
