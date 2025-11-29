@@ -20,7 +20,8 @@
 
 ## Chapter：
 ### Chapter 1：Introduction
-### Chapter 2：Basic Program Design in C++ 
+### Chapter 2：Basic Program Design in C++
+
 ### Chapter 3：Function
 ### Chapter 4: Classes and Objects 
 ### Chapter 5: Data sharing and protection
